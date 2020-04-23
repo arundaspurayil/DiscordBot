@@ -33,13 +33,22 @@ async function getTweets(){
   })
 }
 
+
+function getRandomTweet(){
+  let random = Math.floor(Math.random()*allTweets.length)
+  let msg = allTweets[random];
+  allTweets.splice(random,1)
+  return msg
+}
+
+
 client.on('message', async (msg) => {
   const message = msg.content.toLowerCase()
   if (message.includes("tanner")) {
     if(allTweets.length == 0){
       await getTweets();
     }
-    msg.channel.send(allTweets.pop());
+    msg.channel.send(getRandomTweet());
 
   }
 });
