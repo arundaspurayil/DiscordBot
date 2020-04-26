@@ -1,5 +1,8 @@
 require('dotenv').config()
 var Twitter = require('twitter');
+const Discord = require('discord.js');
+allTweets = []
+
 
 var twitter = new Twitter({
   consumer_key: process.env.CONSUMER_KEY,
@@ -9,32 +12,35 @@ var twitter = new Twitter({
 });
  
 
-const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('Pong!');
-  }
-});
-
 
 client.login(process.env.TOKEN);
 
-allTweets = []
 async function getTweets(){
-  const tweets = await twitter.get('statuses/user_timeline', {screen_name: 'Tholl_22', count: 3200, exclude_replies: true, include_rts: false})
-  tweets.forEach(tweet => {
-    allTweets.push(tweet.text)
-  })
+  let maxId = Infinity
+  let tweets = await twitter.get('statuses/user_timeline', {screen_name: 'Tholl_22', exclude_replies: false, include_rts: false, tweet_mode: 'extended'})
+  while(tweets.length > 1 ){
+    tweets.forEach(tweet => {
+      if(!tweet.hasOwnProperty('quoted_status')){
+        allTweets.push(tweet.full_text)
+      }
+      if(tweet.id < maxId){
+        maxId = tweet.id
+      }
+    })
+    tweets = await twitter.get('statuses/user_timeline', {screen_name: 'Tholl_22', max_id: maxId, exclude_replies: false, include_rts: false, tweet_mode: 'extended'})  
+  }
 }
 
-
-function getRandomTweet(){
+async function getRandomTweet(){
+  if(allTweets.length == 0){
+    await getTweets();
+  }
   let random = Math.floor(Math.random()*allTweets.length)
   let msg = allTweets[random];
   allTweets.splice(random,1)
@@ -45,11 +51,8 @@ function getRandomTweet(){
 client.on('message', async (msg) => {
   const message = msg.content.toLowerCase()
   if (message.includes("tanner")) {
-    if(allTweets.length == 0){
-      await getTweets();
-    }
-    msg.channel.send(getRandomTweet());
-
+    let tweet = await getRandomTweet();
+    msg.channel.send(tweet);
   }
 });
 
