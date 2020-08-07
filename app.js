@@ -52,11 +52,7 @@ async function getRandomTweet() {
 client.on('message', async msg => {
 	const message = msg.content.toLowerCase();
 	const { username } = msg.author;
-	if (
-		message.includes('tanner') ||
-		message.includes('tholl') ||
-		username === 'tholl22'
-	) {
+	if (message.includes('tanner') || message.includes('tholl')) {
 		let tweet = await getRandomTweet();
 		msg.channel.send(tweet);
 	}
