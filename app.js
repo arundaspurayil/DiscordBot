@@ -1,18 +1,9 @@
-require('dotenv').config();
 const Twitter = require('twitter');
+const twitter = new Twitter(require('./twitterConfig'));
 const Discord = require('discord.js');
-let allTweets = [];
-
-const twitter = new Twitter({
-	consumer_key: process.env.CONSUMER_KEY,
-	consumer_secret: process.env.CONSUMER_SECRET,
-	access_token_key: process.env.ACCESS_TOKEN_KEY,
-	access_token_secret: process.env.ACCESS_TOKEN_SECRET,
-});
-
 const client = new Discord.Client();
-
 client.login(process.env.TOKEN);
+let allTweets = [];
 
 async function getTweets() {
 	let maxId = Infinity;
@@ -40,11 +31,10 @@ async function getTweets() {
 }
 
 async function getRandomTweet() {
-	if (allTweets.length == 0) {
-		await getTweets();
-	}
-	let random = Math.floor(Math.random() * allTweets.length);
-	let msg = allTweets[random];
+	if (allTweets.length == 0) await getTweets();
+
+	const random = Math.floor(Math.random() * allTweets.length);
+	const msg = allTweets[random];
 	allTweets.splice(random, 1);
 	return msg;
 }
@@ -53,7 +43,7 @@ client.on('message', async msg => {
 	const message = msg.content.toLowerCase();
 	const { username } = msg.author;
 	if (message.includes('tanner') || message.includes('tholl')) {
-		let tweet = await getRandomTweet();
+		const tweet = await getRandomTweet();
 		msg.channel.send(tweet);
 	}
 });
