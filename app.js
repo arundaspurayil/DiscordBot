@@ -45,5 +45,7 @@ client.on('message', async msg => {
 	if (message.includes('tanner') || message.includes('tholl')) {
 		const tweet = await getRandomTweet();
 		msg.channel.send(tweet);
+	} else if (username === 'tholl222') {
+		msg.channel.send('Balls in my face');
 	}
 });
