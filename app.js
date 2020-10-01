@@ -17,19 +17,17 @@ async function getTweets() {
 
   while (tweets.length > 1) {
     tweets.forEach(tweet => {
-      //If reply get the text after reply @ mention
-
       if (!tweet.hasOwnProperty('quoted_status')) {
         let { text } = tweet;
-        if (tweet.in_reply_to_screen_name) {
+
+        //If reply get the text after reply @ mention
+        if (text.charAt(0) == '@') {
           text = text.substring(text.indexOf(' ') + 1);
         }
         allTweets.push(text);
       }
 
-      if (tweet.id < maxId) {
-        maxId = tweet.id;
-      }
+      maxId = Math.min(tweet.id, maxId);
     });
 
     config.max_id = maxId;
