@@ -20,7 +20,7 @@ async function getTweets() {
       //If reply get the text after reply @ mention
 
       if (!tweet.hasOwnProperty('quoted_status')) {
-        let text = { tweet };
+        let { text } = tweet;
         if (tweet.in_reply_to_screen_name) {
           text = text.substring(text.indexOf(' ') + 1);
         }
