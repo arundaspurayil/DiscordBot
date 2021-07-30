@@ -1,9 +1,7 @@
-const Twitter = require('twitter');
 const TwitterService = require('./twitter-service');
 const Discord = require('discord.js');
 
-const twitterClient = new Twitter(require('./twitterConfig'));
-const twitterService = new TwitterService(twitterClient, 'tholl_22');
+const twitterService = new TwitterService('tholl_22');
 const client = new Discord.Client();
 
 client.login(process.env.TOKEN);

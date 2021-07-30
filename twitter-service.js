@@ -1,8 +1,11 @@
+const Twitter = require('twitter');
+const twitterConfig = require('./twitter-config')
+
 module.exports = class TwitterService {
-  constructor(twitterClient, twitterHandle){
-    this.twitterClient = twitterClient;
+  constructor(twitterHandle){
     this.twitterHandle = twitterHandle;
     this.tweets = [];
+    this.twitterClient =  new Twitter(twitterConfig);
   }
 
   async #getTweets(maxId = Infinity, prevMaxId = undefined) {
