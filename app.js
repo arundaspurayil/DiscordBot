@@ -1,12 +1,11 @@
 const TwitterService = require('./twitter-service');
 const Discord = require('discord.js');
 const cron = require('node-cron')
-const auth = require('./auth.json');
 
 const twitterService = new TwitterService('tholl_22');
 const client = new Discord.Client();
 
-client.login(auth.token);
+client.login(process.env.TOKEN);
 
 client.on('message', async msg => {
   if(msg.author.id === client.user.id) { return; }
@@ -33,13 +32,8 @@ client.on('messageDelete', async msg => {
 });
 
 client.on('presenceUpdate', (oldPresence, newPresence) => {
-  console.log(newPresence);
-  if(oldPresence === undefined || oldPresence.status === newPresence.status) {
-    return;
-  }
-  if(oldPresence.status === 'dnd' || newPresence.status !== 'online') {
-    return;
-  }
+  if(oldPresence === undefined || oldPresence.status === newPresence.status) { return; }
+  if(oldPresence.status === 'dnd' || newPresence.status !== 'online') { return; }
   client.channels.cache.get('962450090117722115').send(newPresence.user.username + ' is online!');
 });
 
