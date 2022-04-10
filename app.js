@@ -33,16 +33,11 @@ client.on('messageDelete', async msg => {
 });
 
 client.on('presenceUpdate', (oldPresence, newPresence) => {
-  if(oldPresence === undefined) {
+  console.log(newPresence);
+  if(oldPresence === undefined || oldPresence.status === newPresence.status) {
     return;
   }
-  if(oldPresence.status === newPresence.status) {
-    return;
-  } 
-  if(oldPresence.status !== 'offline' && oldPresence.status !== 'idle') {
-    return;
-  }
-  if(newPresence.status !== 'online') {
+  if(oldPresence.status === 'dnd' || newPresence.status !== 'online') {
     return;
   }
   client.channels.cache.get('962450090117722115').send(newPresence.user.username + ' is online!');
