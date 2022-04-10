@@ -44,5 +44,5 @@ client.on('presenceUpdate', async (oldPresence, newPresence) => {
     return;
   }
   var user = client.users.cache.find(user => user.id === newPresence.userID)
-  client.channels.cache.get('962450090117722115').send(user.username + ' is online');
+  client.channels.cache.get('266042248548974603').send('@' + user.username + ' is gay');
 });
