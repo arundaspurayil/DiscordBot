@@ -34,7 +34,7 @@ client.on('messageDelete', async msg => {
 client.on('presenceUpdate', (oldPresence, newPresence) => {
   if(oldPresence === undefined || oldPresence.status === newPresence.status) { return; }
   if(oldPresence.status === 'dnd' || newPresence.status !== 'online') { return; }
-  client.channels.cache.get('266042248548974603').send(newPresence.user.username + ' is online!');
+  //client.channels.cache.get('266042248548974603').send(newPresence.user.username + ' is online!');
 });
 
 client.on('ready', () => {
