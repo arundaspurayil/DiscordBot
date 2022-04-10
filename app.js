@@ -33,7 +33,7 @@ client.on('messageDelete', async msg => {
   msg.channel.send(`${author} deleted message: ${message}`);
 });
 
-client.on('presenceUpdate', async (oldPresence, newPresence) => {
+client.on('presenceUpdate', (oldPresence, newPresence) => {
   if(oldPresence === undefined) {
     return;
   }
