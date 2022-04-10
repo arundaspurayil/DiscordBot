@@ -1,13 +1,12 @@
 const TwitterService = require('./twitter-service');
 const Discord = require('discord.js');
 const cron = require('node-cron')
+const auth = require('./auth.json');
 
 const twitterService = new TwitterService('tholl_22');
-const client = new Discord.Client({
-  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_PRESENCES']
-});
+const client = new Discord.Client();
 
-client.login(process.env.TOKEN);
+client.login(auth.token);
 
 client.on('message', async msg => {
   if(msg.author.id === client.user.id) { return; }
@@ -46,7 +45,7 @@ client.on('presenceUpdate', (oldPresence, newPresence) => {
   if(newPresence.status !== 'online') {
     return;
   }
-  client.channels.cache.get('266042248548974603').send(newPresence.user.username + ' is online!');
+  client.channels.cache.get('962450090117722115').send(newPresence.user.username + ' is online!');
 });
 
 client.on('ready', () => {
