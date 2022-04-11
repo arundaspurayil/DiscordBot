@@ -13,7 +13,7 @@ module.exports = {
     toString: function(){
         let string = "Message Counter:"
 
-        const keys = Object.keys(this.counter).sort(function(a, b) { return obj[a] - obj[b] });
+        const keys = Object.keys(this.counter).sort(function(a, b) { return this.counter[a] - this.counter[b] });
         keys.forEach(key => {
             string = string.concat("\n", `${key}: ${this.counter[key]}`)
         })
