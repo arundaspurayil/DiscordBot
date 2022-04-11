@@ -10,7 +10,7 @@ module.exports = {
     clearCounter: function(){
         this.counter = {}
     },
-    prettyPrintCounter: function(){
+    toString: function(){
         let string = "Message Counter:"
 
         const keys = Object.keys(this.counter).sort(function(a, b) { return obj[a] - obj[b] });
