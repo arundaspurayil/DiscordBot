@@ -45,7 +45,7 @@ client.on('ready', () => {
   scheduleCronJob('0 0 17 * * *', () =>
     sendMessageInAllChannels('Time for dinner!')
   );
-  scheduleCronJob('0 0 17 * * *', () => {
+  scheduleCronJob('0 0 19 * * *', () => {
     sendMessageInAllChannels(MessageCounter.toString());
     MessageCounter.clearCounter();
   });
