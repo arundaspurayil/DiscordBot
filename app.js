@@ -10,7 +10,8 @@ client.login(process.env.TOKEN);
 
 client.on('message', async msg => {
   if(msg.author.id === client.user.id) { return; }
-  MessageCounter.incrementCounter(msg.author)
+  MessageCounter.incrementCounter(msg.author?.username)
+  console.log(MessageCounter.prettyPrintCounter())
 
   const message = msg.content.toLowerCase();
 
