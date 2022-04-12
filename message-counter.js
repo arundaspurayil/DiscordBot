@@ -13,12 +13,9 @@ module.exports = {
   toString() {
     let string = 'Message Counter:';
 
-    const keys = Object.keys(this.counter).sort(function (a, b) {
-      return this.counter[a] - this.counter[b];
-    });
-    keys.forEach((key) => {
-      string = string.concat('\n', `${key}: ${this.counter[key]}`);
-    });
+    Object.keys(this.counter)
+      .sort((a, b) => this.counter[b] - this.counter[a])
+      .forEach((key) => (string += '\n' + `${key}: ${this.counter[key]}`));
 
     return string;
   },
