@@ -11,11 +11,13 @@ module.exports = {
     this.counter = {};
   },
   toString: function () {
+    const sortFunction = function (a, b) {
+      return this.counter[b] - this.counter[a];
+    }.bind(this);
+
     let string = 'Message Counter:';
 
-    const keys = Object.keys(this.counter).sort(function (a, b) {
-      return this.counter[a] - this.counter[b];
-    });
+    const keys = Object.keys(this.counter).sort(sortFunction);
     keys.forEach((key) => {
       string = string.concat('\n', `${key}: ${this.counter[key]}`);
     });
