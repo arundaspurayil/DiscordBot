@@ -1,28 +1,32 @@
 const Twitter = require('twitter');
-const twitterConfig = require('./twitter-config')
+const twitterConfig = require('./twitter-config');
 
 module.exports = class TwitterService {
-  constructor(twitterHandle){
+  constructor(twitterHandle) {
     this.twitterHandle = twitterHandle;
     this.tweets = [];
-    this.twitterClient =  new Twitter(twitterConfig);
+    this.twitterClient = new Twitter(twitterConfig);
   }
 
   async #getTweets(maxId = Infinity, prevMaxId = undefined) {
-    if(maxId === prevMaxId) { return; }
+    if (maxId === prevMaxId) {
+      return;
+    }
 
     let config = {
       screen_name: this.twitterHandle,
       exclude_replies: false,
       include_rts: false,
-      ...(maxId !== Infinity && { max_id: maxId })
+      ...(maxId !== Infinity && { max_id: maxId }),
     };
-  
+
     let tweets = await this.twitterClient.get('statuses/user_timeline', config);
     let currentMaxId;
 
-    tweets.forEach(tweet => {
-      if(tweet.hasOwnProperty('quoted_status')) { return; }
+    tweets.forEach((tweet) => {
+      if (tweet.hasOwnProperty('quoted_status')) {
+        return;
+      }
       let { text } = tweet;
 
       if (text.charAt(0) == '@') {
@@ -43,5 +47,4 @@ module.exports = class TwitterService {
     const [msg] = this.tweets.splice(randomNumber, 1);
     return msg;
   }
-}
-
+};
