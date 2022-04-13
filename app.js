@@ -36,12 +36,6 @@ client.on('messageDelete', async (msg) => {
 });
 
 client.on('ready', () => {
-  scheduleCronJob('0 0 9 * * *', () =>
-    sendMessageInAllChannels('Good morning!')
-  );
-  scheduleCronJob('0 0 12 * * *', () =>
-    sendMessageInAllChannels('I need chips :)')
-  );
   scheduleCronJob('0 0 17 * * *', () =>
     sendMessageInAllChannels('Time for dinner!')
   );
