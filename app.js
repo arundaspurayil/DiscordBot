@@ -23,6 +23,9 @@ client.on('message', async (msg) => {
 });
 
 client.on('messageDelete', async (msg) => {
+  if (process.env.SEND_DELETED_MESSAGE !== 'true') {
+    return;
+  }
   let message = msg.content;
   const author = msg.author.username;
 
