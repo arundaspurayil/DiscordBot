@@ -12,7 +12,7 @@ client.on('message', async (msg) => {
   if (msg.author.id === client.user.id) {
     return;
   }
-  Message.create(msg.author?.username);
+  Message.create(msg.author?.username, msg.content);
 
   const message = msg.content.toLowerCase();
 

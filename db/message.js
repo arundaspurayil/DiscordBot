@@ -1,8 +1,8 @@
-const moment = require("moment");
-const fs = require("fs");
-const path = require("path");
+const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
 
-const filePath = path.join(__dirname, "messages.json");
+const filePath = path.join(__dirname, 'messages.json');
 
 const proxyHandler = {
   set: function (obj, prop, value) {
@@ -16,9 +16,10 @@ const proxyHandler = {
 
 module.exports = {
   messages: new Proxy(readMessagesFromFile(), proxyHandler),
-  create(author) {
+  create(author, body) {
     this.messages.push({
       author,
+      body,
       createdAt: moment(),
     });
   },
