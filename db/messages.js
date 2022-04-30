@@ -6,7 +6,7 @@ const createMessage = async (author, body) => {
   const record = {
     author,
     body,
-    createdAt: moment(),
+    createdAt: moment().toDate(),
   };
 
   await Messages.insertOne(record);
