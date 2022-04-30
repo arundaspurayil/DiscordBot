@@ -5,7 +5,11 @@ const Messages = require('./db/messages');
 const MongoClient = require('./db/mongo-client');
 
 const app = express();
-const port = process.env.EXPRESS_PORT || 3000;
+const port = process.env.PORT || 3000;
+
+app.get('/', async (req, res) => {
+  res.send('Hello world!');
+});
 
 app.get('/messages', async (req, res) => {
   const startDate = moment().subtract(7, 'days');
