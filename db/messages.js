@@ -6,12 +6,26 @@ const createMessage = async (author, body) => {
   const record = {
     author,
     body,
-    createdAt: moment(),
+    createdAt: moment().toDate(),
   };
 
   await Messages.insertOne(record);
 };
 
+async function getMessages(startDate, endDate) {
+  const projection = { author: 1, createdAt: 1 };
+
+  return await Messages.find({
+    createdAt: {
+      $gt: startDate.toDate(),
+      $lt: endDate.toDate(),
+    },
+  })
+    .project(projection)
+    .toArray();
+}
+
 module.exports = {
   createMessage,
+  getMessages,
 };
