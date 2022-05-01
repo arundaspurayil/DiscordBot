@@ -1,2 +1,3 @@
-worker: node app.js
 web: node server.js
+worker: node discord-bot.js
+
