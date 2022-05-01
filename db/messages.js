@@ -12,7 +12,7 @@ const createMessage = async (author, body) => {
   await Messages.insertOne(record);
 };
 
-async function getMessages(startDate, endDate) {
+async function findInRange(startDate, endDate) {
   const projection = { author: 1, createdAt: 1 };
 
   return await Messages.find({
@@ -27,5 +27,5 @@ async function getMessages(startDate, endDate) {
 
 module.exports = {
   createMessage,
-  getMessages,
+  findInRange,
 };

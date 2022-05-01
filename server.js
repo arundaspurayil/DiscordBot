@@ -7,15 +7,17 @@ const MongoClient = require('./db/mongo-client');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.static('public'));
+
 app.get('/', async (req, res) => {
-  res.send('Hello world!');
+  res.send('index.html');
 });
 
-app.get('/messages', async (req, res) => {
+app.get('/api/messages', async (req, res) => {
   const startDate = moment().subtract(7, 'days');
   const endDate = moment();
 
-  const messages = await Messages.getMessages(startDate, endDate);
+  const messages = await Messages.findInRange(startDate, endDate);
   res.json(messages);
 });
 
